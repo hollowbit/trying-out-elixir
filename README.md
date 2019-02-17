@@ -1,21 +1,19 @@
-# ElixirTutorial
+# Trying Out Elixir
 
-**TODO: Add description**
+Just a simple repository with some small tutorials I followed and a port of my JavaScript rope length calculator (see below).
 
-## Installation
+## Files
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_tutorial` to your list of dependencies in `mix.exs`:
+- tutorials/tutorial
 
-```elixir
-def deps do
-  [
-    {:elixir_tutorial, "~> 0.1.0"}
-  ]
-end
-```
+  Testing out functional programming concepts with a logic example from: https://youtu.be/eis11j_iGMs
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_tutorial](https://hexdocs.pm/elixir_tutorial).
+- tutorials/tutorial2
 
+  Played around with simple currying concepts
+
+- rope_length_calculator/*
+
+  A port of a JavaScript program I made for a programming challenge. The problem that needed to be solved was to accept several polygons, with their points and calculate the minimum length of a cord to be able to surround them. Here is an example image:
+
+![Problem example image](rope_length_calculator/problem_example.png)
