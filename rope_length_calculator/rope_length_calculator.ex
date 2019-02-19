@@ -1,39 +1,31 @@
 defmodule M do
 
-  def get_points_from_shapes(shapes) do
-    get_points_from_shapes(shapes, [])
+  def get_points_from_shapes([]) do
+    []
   end
 
-  def get_points_from_shapes([], points) do
-    points
+  def get_points_from_shapes([ head | tail ]) do
+    get_points_from_shapes(tail) ++ get_points_from_shape(head)
   end
 
-  def get_points_from_shapes([ head | tail ], points) do
-    get_points_from_shapes(tail, points ++ get_points_from_shape(head))
+  def get_points_from_shape([]) do
+    []
   end
 
-  def get_points_from_shape(shape) do
-    get_points_from_shape(shape, [])
+  def get_points_from_shape([ head | tail ]) do
+    get_points_from_shape(tail) ++ [head]
   end
 
-  def get_points_from_shape([], points) do
-    points
+  def get_most([], _) do
+    nil
   end
 
-  def get_points_from_shape([ head | tail ], points) do
-    get_points_from_shape(tail, points ++ [head])
+  def get_most([ head | tail ], _) when tail == [] do
+    head
   end
 
   def get_most([ head | tail], comp) do
-    get_most(tail, head, comp)
-  end
-
-  def get_most([ head | tail], most, comp) do
-    get_most(tail, comp.(head, most), comp)
-  end
-
-  def get_most([], most, _) do
-    most
+    comp.(head, get_most(tail, comp))
   end
 
   def x(point) do
@@ -52,19 +44,15 @@ defmodule M do
     y(point) < slope * x(point) + intersect
   end
 
-  def filter(all_points, filtr) do
-    filter(all_points, [], filtr)
+  def filter([], _) do
+    []
   end
 
-  def filter([], points, _) do
-    points
-  end
-
-  def filter([ head | tail ], points, filtr) do
+  def filter([ head | tail ], filtr) do
     if(filtr.(head)) do
-      filter(tail, points ++ [head], filtr)
+      filter(tail, filtr) ++ [head]
     else
-      filter(tail, points, filtr)
+      filter(tail, filtr)
     end
   end
 
@@ -107,16 +95,13 @@ defmodule M do
     filter(points, fn p -> M.is_above_line(p, slope, intersect) end)
   end
 
+  def calculate_point_distance([ head | tail ]) when tail == [] do
+    0
+  end
+
   def calculate_point_distance([ head | tail ]) do
-    calculate_point_distance(head, tail, 0)
-  end
-
-  def calculate_point_distance(point, [], acc) do
-    acc
-  end
-
-  def calculate_point_distance(point, [ head | tail ], acc) do
-    calculate_point_distance(head, tail, acc + (:math.sqrt(:math.pow(x(point) - x(head), 2) + :math.pow(y(point) - y(head), 2))))
+    next = Enum.at(tail, 0)
+    calculate_point_distance(tail) + (:math.sqrt(:math.pow(x(next) - x(head), 2) + :math.pow(y(next) - y(head), 2)))
   end
 
 end
