@@ -20,7 +20,7 @@ defmodule M do
     nil
   end
 
-  def get_most([ head | tail ], _) when tail == [] do
+  def get_most([ head ], _) do
     head
   end
 
@@ -95,7 +95,12 @@ defmodule M do
     filter(points, fn p -> M.is_above_line(p, slope, intersect) end)
   end
 
-  def calculate_point_distance([ head | tail ]) when tail == [] do
+  # for safety, in case an empty list is given
+  def calculate_point_distance([]) do
+    0
+  end
+
+  def calculate_point_distance([ head ]) do
     0
   end
 
